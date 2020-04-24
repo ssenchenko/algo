@@ -1,0 +1,64 @@
+﻿{
+  "configurations": [
+    {
+      "buildCommandArgs": "-v",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "cmakeCommandArgs": "-DCMAKE_TOOLCHAIN_FILE=C:/Users/ssenc/source/repos/vcpkg/scripts/buildsystems/vcpkg.cmake",
+      "configurationType": "Debug",
+      "ctestCommandArgs": "",
+      "enableMicrosoftCodeAnalysis": true,
+      "generator": "Ninja",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "name": "x64-Debug",
+      "variables": []
+    },
+    {
+      "buildCommandArgs": "-v",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "cmakeCommandArgs": "-DCMAKE_TOOLCHAIN_FILE=C:/Users/ssenc/source/repos/vcpkg/scripts/buildsystems/vcpkg.cmake",
+      "configurationType": "Debug",
+      "ctestCommandArgs": "",
+      "enableClangTidyCodeAnalysis": true,
+      "generator": "Ninja",
+      "inheritEnvironments": [ "clang_cl_x64" ],
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "name": "x64-Clang-Debug",
+      "variables": []
+    },
+    {
+      "addressSanitizerEnabled": true,
+      "addressSanitizerRuntimeFlags": "detect_leaks=0 leak_check_at_exit=true detect_deadlocks=true",
+      "buildCommandArgs": "",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "cmakeCommandArgs": "",
+      "cmakeExecutable": "/usr/bin/cmake",
+      "configurationType": "Debug",
+      "ctestCommandArgs": "",
+      "enableClangTidyCodeAnalysis": true,
+      "generator": "Unix Makefiles",
+      "inheritEnvironments": [ "linux_clang_x64" ],
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "name": "WSL-Clang-Debug",
+      "variables": [],
+      "wslPath": "C:\\Users\\ssenc\\AppData\\Local\\Microsoft\\WindowsApps\\ubuntu1804.exe"
+    },
+    {
+      "addressSanitizerEnabled": true,
+      "addressSanitizerRuntimeFlags": "detect_leaks=true leak_check_at_exit=true detect_deadlocks=true",
+      "buildCommandArgs": "",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "cmakeCommandArgs": "",
+      "cmakeExecutable": "/usr/bin/cmake",
+      "configurationType": "Debug",
+      "ctestCommandArgs": "",
+      "enableMicrosoftCodeAnalysis": true,
+      "generator": "Unix Makefiles",
+      "inheritEnvironments": [ "linux_clang_x64" ],
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "name": "WSL-GCC-Debug",
+      "variables": [],
+      "wslPath": "C:\\Users\\ssenc\\AppData\\Local\\Microsoft\\WindowsApps\\ubuntu1804.exe"
+    }
+  ]
+}
