@@ -39,4 +39,5 @@ build/
 isenseconfig/
 
 # clangd
+.clangd/
 compile_commands.json
