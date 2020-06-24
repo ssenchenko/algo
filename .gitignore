@@ -37,3 +37,4 @@ build/
 # IDE
 .vs/
 isenseconfig/
+compile_commands.json
