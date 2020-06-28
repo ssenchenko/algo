@@ -1,4 +1,4 @@
-#include "./arrays.hpp"
+#include "arrays.hpp"
 
 #include <gtest/gtest.h>
 
@@ -13,5 +13,5 @@ TEST(Has_All_Unique, AllUnique) {
 }
 
 TEST(Has_All_Unique, NotUnique) {
-  EXPECT_TRUE(chl::HasAllUnique("2dfg$Sp[d"));
+  EXPECT_FALSE(chl::HasAllUnique("2dfg$Sp[d"));
 }

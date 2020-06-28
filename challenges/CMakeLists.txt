@@ -1,5 +1,3 @@
-cmake_minimum_required (VERSION 3.17)
-
 include (GoogleTest)
 include(CMakePrintHelpers)
 
@@ -22,8 +20,9 @@ endforeach()
 cmake_print_variables(HEADER_FILES)
 cmake_print_variables(SOURCE_FILES)
 cmake_print_variables(TEST_FILES)
-if (SOURSE_FILES)
-    add_library (${LIBRARY_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+if (SOURCE_FILES)
+    add_library (${LIBRARY_NAME} ${SOURCE_FILES})
+    target_include_directories(${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
 else ()
     add_library (${LIBRARY_NAME} INTERFACE)
     target_include_directories(${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)

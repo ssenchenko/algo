@@ -1,6 +1,5 @@
-#include "./arrays.hpp"
+#include "arrays.hpp"
 
-#include <algorithm>
 #include <set>
 
 bool chl::HasAllUnique(std::string_view str) {
@@ -12,4 +11,11 @@ bool chl::HasAllUnique(std::string_view str) {
     symbols.insert(ch);
   }
   return true;
+}
+
+bool chl::HasAllUnique2(std::string_view str) {
+  // Time O(N^2)
+  // Memory O(1)
+
+  return false;
 }
