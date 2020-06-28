@@ -36,3 +36,4 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 
 # Include sub-projects.
 add_subdirectory ("adt")
+add_subdirectory ("challenges")
