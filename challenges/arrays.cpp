@@ -35,7 +35,8 @@ bool chl::IsPermutation(std::string_view left, std::string_view right) {
   // time O(N)
   // space O(1) - map for all (printable?) ascii symbols
 
-  // check if strings are identical
+  // checking for equal length doesn't improve time complexity and is covered by general case below
+  // check if strings are identical -- assumption (!!!) that it's not what we're looking for
   if (left == right) return false;
 
   auto char_counter = std::map<const char, int>();
