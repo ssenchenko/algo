@@ -23,3 +23,19 @@ TEST(IsPermutation, BothEmpty) { EXPECT_FALSE(chl::IsPermutation("", "")); }
 TEST(IsPermutation, Permutation) { EXPECT_TRUE(chl::IsPermutation("felt", "left")); }
 TEST(IsPermutation, NotPermutation) { EXPECT_FALSE(chl::IsPermutation("lift", "tiff")); }
 TEST(IsPermutation, NotPermutationNewChar) { EXPECT_FALSE(chl::IsPermutation("lift", "shit")); }
+
+TEST(Urlify, SingleSpaces) {
+  EXPECT_EQ(chl::Urlify("Mr John Smith    ", 13), "Mr%20John%20Smith");
+}
+TEST(Urlify, ManyConsecutiveSpaces) {
+  EXPECT_EQ(chl::Urlify("Mr  John Smith      ", 14), "Mr%20%20John%20Smith");
+}
+TEST(Urlify, OnlySpaces) {
+  EXPECT_EQ(chl::Urlify("      ", 2), "%20%20");
+}
+TEST(Urlify, NoSpaces) {
+  EXPECT_EQ(chl::Urlify("John", 4), "John");
+}
+TEST(Urlify, Empty) {
+  EXPECT_EQ(chl::Urlify("", 0), "");
+}
