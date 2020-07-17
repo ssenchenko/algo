@@ -47,7 +47,7 @@ bool algo::UnionFind<T>::AreConnected(std::pair<T, T> points) {
   auto visited{std::set<T>()};  // already checked elements, to avoid loops
   auto bfs_queue{std::queue<T>()};
 
-  bfs_queue.push(start);
+  bfs_queue.emplace(start);
   for (; bfs_queue.size(); bfs_queue.pop()) {
     auto current = bfs_queue.front();
     if (items_.contains(current)) {
@@ -57,7 +57,7 @@ bool algo::UnionFind<T>::AreConnected(std::pair<T, T> points) {
       visited.insert(current);
       for (const auto &item : items_[current]) {
         if (!visited.contains(item)) {
-          bfs_queue.push(item);
+          bfs_queue.emplace(item);
         }
       }
     } else {
