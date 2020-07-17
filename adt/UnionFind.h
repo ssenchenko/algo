@@ -1,7 +1,8 @@
 #pragma once
 
-#include <unordered_map>
-#include <unordered_set>
+#include <map>
+#include <queue>
+#include <set>
 #include <utility>
 
 namespace algo {
@@ -9,10 +10,10 @@ namespace algo {
 template <class T>
 class UnionFind {
  private:
-  std::unordered_map<T, std::unordered_set<T>> items_;
+  std::map<T, std::set<T>> items_;
 
  public:
-  UnionFind(){};
+  UnionFind() : items_{std::map<T, std::set<T>>()} {};
   void Connect(std::pair<T, T> connected);
   void Disconnect(std::pair<T, T> connected);
   bool AreConnected(std::pair<T, T> points);
@@ -22,31 +23,47 @@ class UnionFind {
 
 template <class T>
 void algo::UnionFind<T>::Connect(std::pair<T, T> connected) {
-  if (items_.contains(connected.first)) {
-    items_.insert({connected.first, std::unordered_set<T>()});
+  const auto [first, second] = connected;
+  if (!items_.contains(first)) {
+    items_.insert({first, std::set<T>()});
   }
-  items_[connected.first].insert(connected.second);
-  if (items_.contains(connected.second)) {
-    items_.insert({connected.second, std::unordered_set<T>()});
+  items_[first].insert(second);
+  if (!items_.contains(second)) {
+    items_.insert({second, std::set<T>()});
   }
-  items_[connected.second].insert(connected.first);
+  items_[second].insert(first);
 }
 
 template <class T>
 void algo::UnionFind<T>::Disconnect(std::pair<T, T> connected) {
-  items_[connected.first].erase(connected.second);
-  items_[connected.second].erase(connected.first);
+  const auto [first, second] = connected;
+  items_[first].erase(second);
+  items_[second].erase(first);
 }
 
 template <class T>
 bool algo::UnionFind<T>::AreConnected(std::pair<T, T> points) {
-  if (items_.count(points.first)) {
-    if (items_[points.first].find(points.second) != items_[points.first].end()) {
-      return true;
-    }
-    for (const auto &item : items_[points.first]) {
-      if (AreConnected({item, points.second})) return true;  // O(c^N) :(
+  const auto [start, etalon] = points;
+  auto visited{std::set<T>()};  // already checked elements, to avoid loops
+  auto bfs_queue{std::queue<T>()};
+
+  bfs_queue.push(start);
+  for (; bfs_queue.size(); bfs_queue.pop()) {
+    auto current = bfs_queue.front();
+    if (items_.contains(current)) {
+      if (items_[current].contains(etalon)) {
+        return true;
+      }
+      visited.insert(current);
+      for (const auto &item : items_[current]) {
+        if (!visited.contains(item)) {
+          bfs_queue.push(item);
+        }
+      }
+    } else {
+      return false;
     }
   }
+
   return false;
 }
