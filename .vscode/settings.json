@@ -59,5 +59,8 @@
     "typeinfo": "cpp",
     "variant": "cpp"
   },
-  "cSpell.words": ["Stroustrup"]
+  "cSpell.words": [
+    "Stroustrup",
+    "Urlify"
+  ]
 }

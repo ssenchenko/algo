@@ -71,20 +71,22 @@ std::string chl::Urlify(std::string original, size_t true_length) {
   //              p
   //         i
 
-  constexpr std::string_view space {"%20"};
+  constexpr std::string_view space{"%20"};
   const auto end = std::rend(original);
-  auto insert_at = std::rbegin(original); // p in diagram
-  auto it = insert_at; // i in diagram
+  auto insert_at = std::rbegin(original);  // p in diagram
+  auto it = insert_at;                     // i in diagram
   // move iterator to the last character of the true string (past additional spaces)
   std::advance(it, std::size(original) - true_length);
-//  for (; (it != end) && (*it == ' '); ++it); // this is wrong approach which fails when string is only spaces or ends in spaces
-  // now comes the main loop to copy symbols
+  // for (; (it != end) && (*it == ' '); ++it); // this is wrong approach which fails when string is
+  // only spaces or ends in spaces now comes the main loop to copy symbols
   for (; it != end; ++it, ++insert_at) {
     if (*it != ' ') {
       *insert_at = *it;
     } else {
-      std::copy(std::rbegin(space), std::rend(space), insert_at); // copy with 2 reverse iterators will copy backwards
-      std::advance(insert_at, std::size(space) - 1); // -1 bc insert_at will be increased in for loop
+      std::copy(std::rbegin(space), std::rend(space),
+                insert_at);  // copy with 2 reverse iterators will copy backwards
+      std::advance(insert_at,
+                   std::size(space) - 1);  // -1 bc insert_at will be increased in for loop
     }
   }
 
