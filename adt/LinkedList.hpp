@@ -4,27 +4,23 @@
 #include <memory>
 
 using std::initializer_list;
-using std::shared_ptr;
 using std::make_shared;
+using std::shared_ptr;
 
 namespace adt {
+
+template <typename Item>
+struct Node {
+  Item item;
+  shared_ptr<Node<Item>> previous;
+  shared_ptr<Node<Item>> next;
+  Node() = delete;
+  Node(Item const& value) : item{value} {};  // use type traits???
+  Node(Item&& value) : item{std::move(value)} {};
+};
+
 template <typename Item>
 class DoubleLinkedList {
- protected:
-  template <typename Item>
-  class Node {
-   private:
-    Item value_;
-
-   public:
-    shared_ptr<Node<Item>> previous;
-    shared_ptr<Node<Item>> next;
-    Node() = delete;
-    Node(Item const& value) : value_{value} {}; // use type traits???
-    Node(Item&& value) : value_{std::move(value)} {};
-    constexpr Item item() { return value_; };
-  };
-
  private:
   shared_ptr<Node<Item>> head_;
   shared_ptr<Node<Item>> tail_;
