@@ -3,18 +3,18 @@ include(CMakePrintHelpers)
 
 set (LIBRARY_NAME "adt")
 set (TEST_EXECUTABLE_NAME "${LIBRARY_NAME}_tests")
-set (NAME_BASES "UnionFind")
+set (NAME_BASES "UnionFind" "LinkedList")
 
 # create list of sources and headers
 set (SOURCE_FILES "")
 set (HEADER_FILES "")
 set (TEST_FILES "")
 foreach (BASE ${NAME_BASES})
-    list (APPEND HEADER_FILES "${BASE}.h")
+    list (APPEND HEADER_FILES "${BASE}.hpp")
     if (EXISTS "${BASE}.cpp")
         list (APPEND SOURCE_FILES "${BASE}.cpp")
     endif ()
-    list (APPEND TEST_FILES "test_${BASE}.cpp")
+    list (APPEND TEST_FILES "${BASE}_tests.cpp")
 endforeach()
 
 if (SOURSE_FILES)

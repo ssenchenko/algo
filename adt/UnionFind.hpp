@@ -5,7 +5,7 @@
 #include <set>
 #include <utility>
 
-namespace algo {
+namespace adt {
 
 template <class T>
 class UnionFind {
@@ -19,10 +19,10 @@ class UnionFind {
   bool AreConnected(std::pair<T, T> points);
 };
 
-}  // namespace algo
+}  // namespace adt
 
 template <class T>
-void algo::UnionFind<T>::Connect(std::pair<T, T> connected) {
+void adt::UnionFind<T>::Connect(std::pair<T, T> connected) {
   const auto [first, second] = connected;
   if (!items_.contains(first)) {
     items_.insert({first, std::set<T>()});
@@ -35,14 +35,14 @@ void algo::UnionFind<T>::Connect(std::pair<T, T> connected) {
 }
 
 template <class T>
-void algo::UnionFind<T>::Disconnect(std::pair<T, T> connected) {
+void adt::UnionFind<T>::Disconnect(std::pair<T, T> connected) {
   const auto [first, second] = connected;
   items_[first].erase(second);
   items_[second].erase(first);
 }
 
 template <class T>
-bool algo::UnionFind<T>::AreConnected(std::pair<T, T> points) {
+bool adt::UnionFind<T>::AreConnected(std::pair<T, T> points) {
   const auto [start, etalon] = points;
   auto visited{std::set<T>()};  // already checked elements, to avoid loops
   auto bfs_queue{std::queue<T>()};

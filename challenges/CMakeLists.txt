@@ -21,13 +21,13 @@ cmake_print_variables(HEADER_FILES)
 cmake_print_variables(SOURCE_FILES)
 cmake_print_variables(TEST_FILES)
 if (SOURCE_FILES)
-    add_library (${LIBRARY_NAME} ${SOURCE_FILES})
+    add_library (${LIBRARY_NAME} ${SOURCE_FILES} )
 else ()
     add_library (${LIBRARY_NAME} INTERFACE)
 endif ()
 target_include_directories(${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
 
-add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES})
+add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES} )
 
 target_link_libraries (${TEST_EXECUTABLE_NAME} gtest_main ${LIBRARY_NAME})
 
