@@ -19,9 +19,10 @@ endforeach()
 
 if (SOURSE_FILES)
     add_library (${LIBRARY_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+    target_include_directories(${LIBRARY_NAME} PUBLIC CMAKE_CURRENT_SOURCE_DIR)
 else ()
     add_library (${LIBRARY_NAME} INTERFACE)
-    target_include_directories(${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
+    target_include_directories (${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
 endif ()
 
 add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES})

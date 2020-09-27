@@ -8,7 +8,6 @@ project ("algo")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -33,6 +32,13 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
                  ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
                  EXCLUDE_FROM_ALL)
+
+# set warnings after compiling googletest
+if(MSVC)
+  set(WARNINGS "/W3 /WX /permissive-")
+else()
+  set(WARNINGS "-Wall -Wextra -Wpedantic -Werror")
+endif()
 
 # Include sub-projects.
 add_subdirectory ("adt")

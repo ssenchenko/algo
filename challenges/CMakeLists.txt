@@ -21,11 +21,14 @@ cmake_print_variables(HEADER_FILES)
 cmake_print_variables(SOURCE_FILES)
 cmake_print_variables(TEST_FILES)
 if (SOURCE_FILES)
-    add_library (${LIBRARY_NAME} ${SOURCE_FILES} )
-else ()
+    add_library (${LIBRARY_NAME} ${HEADER_FILES} ${SOURCE_FILES} )
+    target_include_directories(${LIBRARY_NAME} PUBLIC CMAKE_CURRENT_SOURCE_DIR)
+else()
     add_library (${LIBRARY_NAME} INTERFACE)
-endif ()
-target_include_directories(${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
+    target_include_directories(${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
+endif()
+
+set_target_properties(${LIBRARY_NAME} PROPERTIES COMPILE_FLAGS ${WARNINGS}) # WARNINGS from global CMakeLists
 
 add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES} )
 
