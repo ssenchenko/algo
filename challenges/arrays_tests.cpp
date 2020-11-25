@@ -2,6 +2,8 @@
 
 #include "arrays.hpp"
 
+using namespace std::literals::string_literals;
+
 TEST(Has_All_Unique, EmptyString) { EXPECT_TRUE(chl::HasAllUnique("")); }
 TEST(Has_All_Unique, AllUnique) {
   EXPECT_TRUE(chl::HasAllUnique("2"));
@@ -31,3 +33,10 @@ TEST(Urlify, ManyConsecutiveSpaces) {
 TEST(Urlify, OnlySpaces) { EXPECT_EQ(chl::Urlify("      ", 2), "%20%20"); }
 TEST(Urlify, NoSpaces) { EXPECT_EQ(chl::Urlify("John", 4), "John"); }
 TEST(Urlify, Empty) { EXPECT_EQ(chl::Urlify("", 0), ""); }
+
+TEST(CountUniqueEmails, ItWorks) { 
+  std::vector<std::string> emails {"test.email+alex@leetcode.com"s,
+                                   "test.e.mail+bob.cathy@leetcode.com"s,
+                                   "testemail+david@lee.tcode.com"s};
+  EXPECT_EQ(chl::CountUniqueEmails(emails), 2);
+}

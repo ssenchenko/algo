@@ -5,6 +5,8 @@
 #include <map>
 #include <set>
 
+using namespace std::literals::string_literals;
+
 bool chl::HasAllUnique(std::string_view str) {
   // Time O(N)
   // Space O(N)
@@ -91,4 +93,32 @@ std::string chl::Urlify(std::string original, size_t true_length) {
   }
 
   return original;
+}
+
+int chl::CountUniqueEmails(const std::vector<std::string>& emails) {
+  // Time O(M*N)
+  // Space O(M*N)
+
+  auto get_clean_emails = [](const std::string& email) {
+    auto left{0}, right{0};
+    auto clean{""s};
+    while (email.at(right) != '+' && email.at(right) != '@') {
+      if (email.at(right) == '.') {
+        clean += email.substr(left, right - left);
+        left = right + 1;
+      }
+      ++right;
+    }
+    clean += email.substr(left, right - left);
+    while (email.at(right) != '@') ++right;
+    clean += email.substr(right, email.size() - right);
+    return clean;
+  };
+
+  std::set<std::string> unique_emails;
+  for (auto email : emails) {
+    auto clean_email = get_clean_emails(email);
+    unique_emails.insert(clean_email);
+  }
+  return unique_emails.size();
 }
