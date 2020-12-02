@@ -57,7 +57,12 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "chrono": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "ratio": "cpp",
+    "ranges": "cpp"
   },
   "cSpell.words": [
     "Stroustrup",
