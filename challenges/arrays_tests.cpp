@@ -34,9 +34,28 @@ TEST(Urlify, OnlySpaces) { EXPECT_EQ(chl::Urlify("      ", 2), "%20%20"); }
 TEST(Urlify, NoSpaces) { EXPECT_EQ(chl::Urlify("John", 4), "John"); }
 TEST(Urlify, Empty) { EXPECT_EQ(chl::Urlify("", 0), ""); }
 
-TEST(CountUniqueEmails, ItWorks) { 
-  std::vector<std::string> emails {"test.email+alex@leetcode.com"s,
-                                   "test.e.mail+bob.cathy@leetcode.com"s,
-                                   "testemail+david@lee.tcode.com"s};
+TEST(CountUniqueEmails, ItWorks) {
+  std::vector<std::string> emails{"test.email+alex@leetcode.com"s,
+                                  "test.e.mail+bob.cathy@leetcode.com"s,
+                                  "testemail+david@lee.tcode.com"s};
   EXPECT_EQ(chl::CountUniqueEmails(emails), 2);
+}
+
+TEST(OddEvenJumps_v1, Example1) {
+  std::vector<int> A{10, 13, 12, 14, 15};
+  EXPECT_EQ(chl::OddEvenJumps_v1(A), 2);
+}
+TEST(OddEvenJumps_v1, Example2) {
+  std::vector<int> A{2, 3, 1, 1, 4};
+  EXPECT_EQ(chl::OddEvenJumps_v1(A), 3);
+}
+TEST(OddEvenJumps_v1, Example3) {
+  std::vector<int> A{5, 1, 3, 4, 2};
+  EXPECT_EQ(chl::OddEvenJumps_v1(A), 3);
+}
+
+TEST(OddEvenJumps_v2, Example1_odd_jumps) {
+  chl::OddEvenJumps_v2 test{10, 13, 12, 14, 15};
+  std::vector<int> expected{2, 3, 3, 4, -1};
+  EXPECT_EQ(test.odd_jumps(), expected);
 }

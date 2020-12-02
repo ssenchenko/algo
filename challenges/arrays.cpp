@@ -122,3 +122,67 @@ int chl::CountUniqueEmails(const std::vector<std::string>& emails) {
   }
   return unique_emails.size();
 }
+
+int chl::OddEvenJumps_v1(std::vector<int>& A) {
+  // Time O(N^2)
+  // Space O(N) with cache or O(1) without cache
+
+  constexpr auto kMaxNumber{10e+5};
+  constexpr auto kMinNumber{-1l};
+  auto end{A.size() - 1};
+
+  std::map<std::string, int> cache;
+
+  auto find_path = [&cache](auto index, auto jump_number, auto call) {
+    auto key = std::to_string(index) + "+" + std::to_string(jump_number % 2);
+    auto lookup = cache.find(key);
+    if (lookup != cache.end()) return lookup->second;
+    auto res = call(index, jump_number);
+    cache.insert({key, res});
+    return res;
+  };
+
+  std::function<int(size_t, int)> path_to_end = [&](auto index, auto jump_number) {
+    // index = 2, jump_number = 1
+    if (index == end) return 1;
+
+    auto good_jump_index{0};
+    if (jump_number % 2 != 0) {
+      auto good_jump{kMaxNumber};
+      for (auto i{index + 1}; i <= end; i++) {
+        if (A[i] >= A[index] && A[i] < good_jump) {
+          good_jump = A[i];
+          good_jump_index = i;
+        }
+      }
+    } else {
+      auto good_jump{kMinNumber};
+      for (size_t i{index + 1}; i <= end; i++) {
+        if (A[i] <= A[index] && A[i] > good_jump) {
+          good_jump = A[i];
+          good_jump_index = i;
+        }
+      }
+    }
+    if (good_jump_index && find_path(good_jump_index, jump_number + 1, path_to_end)) return 1;
+    return 0;
+  };
+
+  auto good_jumps{1};
+  for (size_t i{0}; i <= A.size() - 2; ++i) {
+    good_jumps += find_path(i, 1, path_to_end);
+  }
+  return good_jumps;
+}
+
+std::vector<int> chl::OddEvenJumps_v2::odd_jumps() {
+  std::vector<int> res;
+  res.assign(input_.size(), -1);
+  std::map<int, int> helper;
+  for (auto i{input_.size() - 2}; i >= 0; --i) {
+    helper.insert({input_[i + 1], i + 1});
+    auto jump_it = helper.upper_bound(input_[i] + 1);
+    if (jump_it != helper.end()) res[i] = jump_it->second;
+  }
+  return res;
+}
