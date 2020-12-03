@@ -37,7 +37,7 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 
 # set warnings after compiling googletest
 if(MSVC)
-  set(WARNINGS "/W4 /WX /permissive-")
+  set(WARNINGS "/W4 /permissive-")
 else()
   set(WARNINGS "-Wall -Wextra -Wpedantic -Werror")
 endif()
