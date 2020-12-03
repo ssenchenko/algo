@@ -67,7 +67,7 @@ std::string Urlify(std::string original, size_t true_length);
  * @param emails list of email addresses
  * @return int
  */
-int CountUniqueEmails(const std::vector<std::string>& emails);
+size_t CountUniqueEmails(const std::vector<std::string>& emails);
 
 /**
  * @brief Find the number of good (see below) starting indices to to reach the last element of the
@@ -89,22 +89,9 @@ int CountUniqueEmails(const std::vector<std::string>& emails);
  * that index, you can reach the end of the array (index A.length - 1) by jumping some number of
  * times (possibly 0 or more than once).
  *
- * Implementation with recursion and DP (not a good fit for this challenge)
- *
- * @param A vector of integers
  * @return int
  */
-int OddEvenJumps_v1(std::vector<int>& A);
-
-/**
- * @brief Find the number of good (see below) starting indices to to reach the last element of the
- * array.
- *
- * See OddEvenJumps_v1 for detailed description
- *
- * Implementation with Monotonous Stack
- */
-class OddEvenJumps_v2 {
+class OddEvenJumps {
   /*
         odd
       5, 1, 3, 4, 2
@@ -119,7 +106,7 @@ class OddEvenJumps_v2 {
 
  public:
   // the only constructor needed for unit tests
-  OddEvenJumps_v2(std::initializer_list<int> lst) : input_{lst} {};
+  OddEvenJumps(std::initializer_list<int> lst) : input_{lst} {};
   // TODO: delete implicit constructors
 
   int operator()();

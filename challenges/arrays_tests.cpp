@@ -41,35 +41,22 @@ TEST(CountUniqueEmails, ItWorks) {
   EXPECT_EQ(chl::CountUniqueEmails(emails), 2);
 }
 
-TEST(OddEvenJumps_v1, Example1) {
-  std::vector<int> A{10, 13, 12, 14, 15};
-  EXPECT_EQ(chl::OddEvenJumps_v1(A), 2);
-}
-TEST(OddEvenJumps_v1, Example2) {
-  std::vector<int> A{2, 3, 1, 1, 4};
-  EXPECT_EQ(chl::OddEvenJumps_v1(A), 3);
-}
-TEST(OddEvenJumps_v1, Example3) {
-  std::vector<int> A{5, 1, 3, 4, 2};
-  EXPECT_EQ(chl::OddEvenJumps_v1(A), 3);
-}
-
-TEST(OddEvenJumps_v2, Example1) {
-  chl::OddEvenJumps_v2 test{10, 13, 12, 14, 15};
+TEST(OddEvenJumps, Example1) {
+  chl::OddEvenJumps test{10, 13, 12, 14, 15};
   std::vector<int> expected_odd{2, 3, 3, 4, -1};
   EXPECT_EQ(test.odd_jumps(), expected_odd);
   std::vector<int> expected_even{-1, 2, -1, -1, -1};
   EXPECT_EQ(test.even_jumps(), expected_even);
 }
 
-TEST(OddEvenJumps_v2, Example2) {
-  chl::OddEvenJumps_v2 test{2, 3, 1, 1, 4};
+TEST(OddEvenJumps, Example2) {
+  chl::OddEvenJumps test{2, 3, 1, 1, 4};
   std::vector<int> expected{1, 4, 3, 4, -1};
   EXPECT_EQ(test.odd_jumps(), expected);
 }
 
-TEST(OddEvenJumps_v2, Example3) {
-  chl::OddEvenJumps_v2 test{5, 1, 3, 4, 2};
+TEST(OddEvenJumps, Example3) {
+  chl::OddEvenJumps test{5, 1, 3, 4, 2};
   std::vector<int> expected{-1, 4, 3, -1, -1};
   EXPECT_EQ(test.odd_jumps(), expected);
 }
