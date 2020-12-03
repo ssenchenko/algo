@@ -179,9 +179,21 @@ std::vector<int> chl::OddEvenJumps_v2::odd_jumps() {
   std::vector<int> res;
   res.assign(input_.size(), -1);
   std::map<int, int> helper;
-  for (auto i{input_.size() - 2}; i >= 0; --i) {
+  for (auto i{input_.size() - 1}; i--;) {
     helper.insert({input_[i + 1], i + 1});
-    auto jump_it = helper.upper_bound(input_[i] + 1);
+    auto jump_it = helper.upper_bound(input_[i] - 1);
+    if (jump_it != helper.end()) res[i] = jump_it->second;
+  }
+  return res;
+}
+
+std::vector<int> chl::OddEvenJumps_v2::even_jumps() {
+  std::vector<int> res;
+  res.assign(input_.size(), -1);
+  std::map<int, int> helper;
+  for (auto i{input_.size() - 1}; i--;) {
+    helper.insert({input_[i + 1], i + 1});
+    auto jump_it = helper.lower_bound(input_[i]);
     if (jump_it != helper.end()) res[i] = jump_it->second;
   }
   return res;
