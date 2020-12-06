@@ -65,7 +65,7 @@ std::string Urlify(std::string original, size_t true_length);
  * addresses actually receive mails?
  *
  * @param emails list of email addresses
- * @return int
+ * @return number of unique emails
  */
 size_t CountUniqueEmails(const std::vector<std::string>& emails);
 
@@ -88,8 +88,6 @@ size_t CountUniqueEmails(const std::vector<std::string>& emails);
  * case that for some index i, there are no legal jumps. A starting index is good if, starting from
  * that index, you can reach the end of the array (index A.length - 1) by jumping some number of
  * times (possibly 0 or more than once).
- *
- * @return int
  */
 class OddEvenJumps {
   /*
@@ -103,11 +101,14 @@ class OddEvenJumps {
 
   */
   std::vector<int> input_;
+  size_t input_size_;
+
+  static constexpr int kNoJump = -1;
 
  public:
   // the only constructor needed for unit tests
-  OddEvenJumps(std::initializer_list<int> lst) : input_{lst} {};
-  // TODO: delete implicit constructors
+  OddEvenJumps(std::initializer_list<int> lst) : input_{lst}, input_size_{lst.size()} {};
+  OddEvenJumps(const OddEvenJumps&) = delete;
 
   int operator()();
 
@@ -124,6 +125,10 @@ class OddEvenJumps {
    * @return std::vector<int> Space of possible even jumps
    */
   std::vector<int> even_jumps();
+
+  std::string CreateKey(size_t index, short is_odd_jump) {
+    return std::to_string(index) + "-" + std::to_string(is_odd_jump);
+  }
 };
 
 }  // namespace chl
