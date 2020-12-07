@@ -3,7 +3,7 @@ include(CMakePrintHelpers)
 
 set (LIBRARY_NAME "challenges")
 set (TEST_EXECUTABLE_NAME "${LIBRARY_NAME}_tests")
-set (NAME_BASES "arrays")
+set (NAME_BASES "arrays" "dp")
 
 # create list of sources and headers
 set (SOURCE_FILES "")
