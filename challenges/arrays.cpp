@@ -123,3 +123,45 @@ size_t chl::CountUniqueEmails(const std::vector<std::string>& emails) {
   }
   return unique_emails.size();
 }
+
+std::string chl::LicenseKeyFormatting(std::string_view source, int K) {
+  constexpr char kSeparator = '-';
+
+  auto IsLower = [](char c) { return std::islower(static_cast<unsigned char>(c)) != 0; };
+
+  auto ToUpper = [](char c) {
+    return static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
+  };
+
+  size_t sep_counter{0};
+  for (auto sep_pos = source.find(kSeparator); sep_pos != source.npos;
+       ++sep_counter, sep_pos = source.find(kSeparator, sep_pos + 1))
+    ;
+  auto updated_size = source.size() - sep_counter;
+  std::string target;
+  if (updated_size) {
+    auto groups_number = updated_size / K + (updated_size % K ? 1 : 0);
+    auto new_size = groups_number - 1 + updated_size;
+    target.reserve(new_size);
+    target.assign(new_size, kSeparator);
+  }
+  auto source_it = source.rbegin();
+  auto target_it = target.rbegin();
+  auto group_counter = K;
+  for (auto source_end = source.rend(); source_it != source_end;) {
+    if (*source_it == kSeparator) {
+      ++source_it;
+      continue;
+    }
+    if (group_counter == 0) {
+      group_counter = K;
+      ++target_it;
+    } else {
+      --group_counter;
+      *target_it = IsLower(*source_it) ? ToUpper(*source_it) : *source_it;
+      ++source_it;
+      ++target_it;
+    }
+  }
+  return target;
+}

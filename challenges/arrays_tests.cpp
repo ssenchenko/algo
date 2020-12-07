@@ -40,3 +40,15 @@ TEST(CountUniqueEmails, ItWorks) {
                                   "testemail+david@lee.tcode.com"s};
   EXPECT_EQ(chl::CountUniqueEmails(emails), 2);
 }
+
+TEST(LicenseKeyFormatting, EqualNoInGroups) {
+  EXPECT_EQ("5F3Z-2E9W", chl::LicenseKeyFormatting("5F3Z-2e-9-w", 4));
+}
+
+TEST(LicenseKeyFormatting, SmallerNoInGroups) {
+  EXPECT_EQ("2-5G-3J", chl::LicenseKeyFormatting("2-5g-3-J", 2));
+}
+
+TEST(LicenseKeyFormatting, EmptyInput) {
+  EXPECT_EQ("", chl::LicenseKeyFormatting("---", 3));
+}
