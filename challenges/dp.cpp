@@ -1,8 +1,8 @@
 #include "dp.hpp"
 
-#include <map>
 #include <algorithm>
 #include <functional>
+#include <map>
 
 int chl::OddEvenJumps::operator()() {
   auto odd = odd_jumps();
@@ -50,4 +50,36 @@ std::vector<int> chl::OddEvenJumps::even_jumps() {
     if (jump_it != helper.end()) res[i] = jump_it->second;
   }
   return res;
+}
+
+int chl::MaxFruitNumber(const std::vector<int> &tree) {
+  // Time O(N)
+  // Memory O(1)
+
+  //  0 1 2 3 4 5
+  // [3,3,3,1,1,2,1,1,2,3,3,4]
+  //               p
+  //              s
+  //  counter = 2
+
+  auto s{tree.cbegin()}, p{std::next(s)}, end{tree.cend()};
+  auto t1{*s}, t2{*s};  // t1 - type in 1st bucket, t2 - type in 2nd bucket
+  auto count{0}, counter{1};
+
+  for (; p != end; ++p, ++counter) {
+    if (*p != *s) {
+      if (t1 == t2) {
+        t2 = *p;  // 1st time introducing 2nd type
+      }
+      else if (*p != t1 && *p != t2) {          // third type found
+        count = std::max(count, counter);
+        counter = std::distance(s, p);
+        t1 = *s;
+        t2 = *p;
+      }
+      s = p;
+    }
+  }
+  count = std::max(count, counter);
+  return count;
 }

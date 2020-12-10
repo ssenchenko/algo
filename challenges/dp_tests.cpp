@@ -28,3 +28,28 @@ TEST(OddEvenJumps, Example3) {
   EXPECT_EQ(test.even_jumps(), expected_even);
   EXPECT_EQ(test(), 3);
 }
+
+TEST(MaxFruitNumber, GatherAll) {
+  std::vector trees{1,2,1};
+  EXPECT_EQ(3, chl::MaxFruitNumber(trees));
+}
+
+TEST(MaxFruitNumber, OmitFirst) {
+  std::vector trees{0, 1,2,2};
+  EXPECT_EQ(3, chl::MaxFruitNumber(trees));
+}
+
+TEST(MaxFruitNumber, OmitFirstAgain) {
+  std::vector trees{1,2,3,2,2};
+  EXPECT_EQ(4, chl::MaxFruitNumber(trees));
+}
+
+TEST(MaxFruitNumber, OneMoreExample) {
+  std::vector trees{1,0,3,4,3};
+  EXPECT_EQ(3, chl::MaxFruitNumber(trees));
+}
+
+TEST(MaxFruitNumber, LongSequence) {
+  std::vector trees{1,1,6,5,6,6,1,1,1,1};
+  EXPECT_EQ(6, chl::MaxFruitNumber(trees));
+}
