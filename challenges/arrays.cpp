@@ -165,3 +165,54 @@ std::string chl::LicenseKeyFormatting(std::string_view source, int K) {
   }
   return target;
 }
+
+bool chl::BackspaceCompare(std::string_view S, std::string_view T) {
+  // Time O(N)
+  // Space O(1)
+
+  /*
+  skip = 0
+  S = "ab##",
+      i
+
+  skip = 0
+  T = "c#d#"
+      j
+
+  skip = 0
+  S = "a#c",
+
+  skip = 0
+  T = "b"
+  */
+  constexpr auto kBackspace = '#';
+
+  auto NextMeaningful = [&kBackspace](auto it, auto end) {
+    unsigned short skip{0};
+    while (it != end && (*it == kBackspace || skip)) {
+      if (*it == kBackspace)
+        ++skip;
+      else if (skip)
+        --skip;
+      ++it;
+    }
+    return it;
+  };
+
+  auto s{S.crbegin()}, t{T.crbegin()};
+  const auto s_end{S.crend()}, t_end{T.crend()};
+  auto are_equal{true};
+  while (are_equal) {
+    s = NextMeaningful(s, s_end);
+    t = NextMeaningful(t, t_end);
+    if (s == s_end && t == t_end) {
+      are_equal = true;
+      break;
+    } else if (s == s_end && t != t_end || t == t_end && s != s_end) {
+      are_equal = false;
+      break;
+    } else
+      are_equal = *s++ == *t++;
+  }
+  return are_equal;
+}

@@ -44,11 +44,12 @@ TEST(CountUniqueEmails, ItWorks) {
 TEST(LicenseKeyFormatting, EqualNoInGroups) {
   EXPECT_EQ("5F3Z-2E9W", chl::LicenseKeyFormatting("5F3Z-2e-9-w", 4));
 }
-
 TEST(LicenseKeyFormatting, SmallerNoInGroups) {
   EXPECT_EQ("2-5G-3J", chl::LicenseKeyFormatting("2-5g-3-J", 2));
 }
+TEST(LicenseKeyFormatting, EmptyInput) { EXPECT_EQ("", chl::LicenseKeyFormatting("---", 3)); }
 
-TEST(LicenseKeyFormatting, EmptyInput) {
-  EXPECT_EQ("", chl::LicenseKeyFormatting("---", 3));
-}
+TEST(BackspaceCompare, Test1) { EXPECT_TRUE(chl::BackspaceCompare("ab#c", "ad#c")); }
+TEST(BackspaceCompare, Test2) { EXPECT_TRUE(chl::BackspaceCompare("ab##", "c#d#")); }
+TEST(BackspaceCompare, Test3) { EXPECT_TRUE(chl::BackspaceCompare("a##c", "#a#c")); }
+TEST(BackspaceCompare, Test4) { EXPECT_FALSE(chl::BackspaceCompare("a#c", "b")); }
