@@ -42,3 +42,6 @@ isenseconfig/
 # clangd
 .clangd/
 compile_commands.json
+
+# files with machine-specific routes
+CMakeSettings.json
