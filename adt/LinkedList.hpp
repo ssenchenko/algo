@@ -33,8 +33,10 @@ class SinglyLinkedList {
 
   SinglyLinkedList(std::initializer_list<Item> items_list);
 
-  [[nodiscard]] auto size() const -> size_t;
-  [[nodiscard]] auto IsEmpty() const -> bool { return head_ == nullptr; }
+  [[nodiscard]] 
+  size_t size() const;
+  [[nodiscard]] 
+  bool IsEmpty() const { return head_ == nullptr; }
 
   void PushBack(Item item);
   void PushFront(Item item);
@@ -43,13 +45,13 @@ class SinglyLinkedList {
 
 template <typename Item>
 adt::SinglyLinkedList<Item>::SinglyLinkedList(std::initializer_list<Item> items_list) {
-  for (const auto* j{std::prev(items_list.end())}; j >= items_list.begin(); --j) {
+  for (auto j{std::prev(items_list.end())}; j >= items_list.begin(); --j) {
     PushFront(*j);
   }
 }
 
 template <typename Item>
-auto adt::SinglyLinkedList<Item>::size() const -> size_t {
+size_t adt::SinglyLinkedList<Item>::size() const {
   if (IsEmpty()) {
     return 0;
   }
