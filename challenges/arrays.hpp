@@ -89,4 +89,17 @@ size_t CountUniqueEmails(const std::vector<std::string>& emails);
  */
 std::string LicenseKeyFormatting(std::string_view source, int K);
 
+/**
+ * @brief Compare 2 strings which may contain backspace character.
+ *
+ * Given two strings S and T, return if they are equal when both are typed into empty text editors.
+ * # means a backspace character.
+ * Note that after backspacing an empty text, the text will continue empty.
+ *
+ * @param S first string
+ * @param T second string
+ * @return true if S == T
+*/
+bool BackspaceCompare(std::string_view S, std::string_view T);
+
 }  // namespace chl
