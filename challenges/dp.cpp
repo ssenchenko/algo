@@ -69,9 +69,8 @@ int chl::MaxFruitNumber(const std::vector<int> &tree) {
   for (; p != end; ++p, ++counter) {
     if (*p != *s) {
       if (t1 == t2) {
-        t2 = *p;  // 1st time introducing 2nd type
-      }
-      else if (*p != t1 && *p != t2) {          // third type found
+        t2 = *p;                          // 1st time introducing 2nd type
+      } else if (*p != t1 && *p != t2) {  // third type found
         count = std::max(count, counter);
         counter = std::distance(s, p);
         t1 = *s;
