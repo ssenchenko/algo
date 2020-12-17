@@ -208,7 +208,7 @@ bool chl::BackspaceCompare(std::string_view S, std::string_view T) {
     if (s == s_end && t == t_end) {
       are_equal = true;
       break;
-    } else if (s == s_end && t != t_end || t == t_end && s != s_end) {
+    } else if ((s == s_end && t != t_end) || (t == t_end && s != s_end)) {
       are_equal = false;
       break;
     } else

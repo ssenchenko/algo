@@ -1,22 +1,25 @@
 #pragma once
 
+#include <memory>
+#include <utility>
+
 namespace adt {
 
 template <typename Item>
 class SinglyLinkedList {
-  template <typename Item>
+  template <typename T>
   struct Node {
-    using NodeT = Node<Item>;
+    using NodeT = Node<T>;
 
-    Item item;
+    T item;
     std::shared_ptr<NodeT> next;  // use of unique_ptr would make impossible to copy Node
 
     Node() = delete;
     Node(NodeT const& node) : item{node.item}, next{node.next} {};
     Node(NodeT&& node) noexcept : item{std::move(node.value)}, next{std::move(node.next)} {};
 
-    explicit Node(Item item_copy) : item{std::move(item_copy)}, next{nullptr} {};
-    explicit Node(Item&& item_rvalue) : item{item_rvalue}, next{nullptr} {};
+    explicit Node(T item_copy) : item{std::move(item_copy)}, next{nullptr} {};
+    explicit Node(T&& item_rvalue) : item{item_rvalue}, next{nullptr} {};
   };
 
   std::shared_ptr<Node<Item>> head_;
@@ -33,10 +36,8 @@ class SinglyLinkedList {
 
   SinglyLinkedList(std::initializer_list<Item> items_list);
 
-  [[nodiscard]] 
-  size_t size() const;
-  [[nodiscard]] 
-  bool IsEmpty() const { return head_ == nullptr; }
+  [[nodiscard]] size_t size() const;
+  [[nodiscard]] bool IsEmpty() const { return head_ == nullptr; }
 
   void PushBack(Item item);
   void PushFront(Item item);

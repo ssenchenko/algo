@@ -17,7 +17,7 @@ int chl::OddEvenJumps::operator()() {
     short res = 0;
     if (next_jump == input_size_ - 1)
       res = 1;
-    else if (next_jump != kNoJump)
+    else if (static_cast<int>(next_jump) != kNoJump)
       res = Jumper(next_jump, !is_odd);
     solutions[key] = res;
     return res;
