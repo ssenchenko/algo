@@ -20,15 +20,14 @@ endforeach()
 if (SOURSE_FILES)
     add_library (${LIBRARY_NAME} ${HEADER_FILES} ${SOURCE_FILES})
     target_include_directories(${LIBRARY_NAME} PUBLIC CMAKE_CURRENT_SOURCE_DIR)
+    set_target_properties(${LIBRARY_NAME} PROPERTIES COMPILE_FLAGS ${WARNINGS}) # WARNINGS from global CMakeLists
 else ()
     add_library (${LIBRARY_NAME} INTERFACE)
     target_include_directories (${LIBRARY_NAME} INTERFACE CMAKE_CURRENT_SOURCE_DIR)
 endif ()
 
 add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES})
-
 target_link_libraries (${TEST_EXECUTABLE_NAME} gtest_main ${LIBRARY_NAME})
 
 enable_testing ()
-
 gtest_discover_tests (${TEST_EXECUTABLE_NAME})

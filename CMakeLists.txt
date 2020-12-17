@@ -43,5 +43,5 @@ else()
 endif()
 
 # Include sub-projects.
-add_subdirectory ("adt")
-add_subdirectory ("challenges")
+add_subdirectory (adt)
+add_subdirectory (challenges)
