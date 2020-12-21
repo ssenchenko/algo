@@ -2,19 +2,20 @@
 
 #include "./LinkedList.hpp"
 
-using namespace adt;
+using adt::SinglyLinkedList;
 
 TEST(SinglyLinkedList, DefaultConstructor_CreatesEmptyList) {
-  auto list = adt::SinglyLinkedList<int>();
+  auto list = SinglyLinkedList<int>();
   EXPECT_TRUE(list.IsEmpty());
   EXPECT_EQ(0, list.size());
 }
 
 TEST(SinglyLinkedList, PushBack_AddsHead) {
-  auto list = adt::SinglyLinkedList<int>();
-  list.PushBack(1);
+  auto list = SinglyLinkedList<int>();
+  auto tail = list.PushBack(1);
   EXPECT_FALSE(list.IsEmpty());
   EXPECT_EQ(1, list.size());
+  EXPECT_EQ(1, *tail);
 }
 
 TEST(SinglyLinkedList, PushBack_AddsAfterHead) {
@@ -46,4 +47,3 @@ TEST(SinglyLinkedList, InitializerList) {
   EXPECT_FALSE(list.IsEmpty());
   EXPECT_EQ(list.size(), 2);
 }
-

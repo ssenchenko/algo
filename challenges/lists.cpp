@@ -2,8 +2,8 @@
 
 #include <utility>
 
-adt::SinglyLinkedList<int> chl::AddNumbers(
-    /*adt::SinglyLinkedList<int> l1, adt::SinglyLinkedList<int> l2*/) {
+adt::SinglyLinkedList<int> chl::AddNumbers(adt::SinglyLinkedList<int> /*l1*/,
+                                           adt::SinglyLinkedList<int> /*l2*/) {
   // auto AddNumbers = [](int rhn, int lhn) {
   //   auto res = lhn + rhn;
   //   auto carry_over = 0;
