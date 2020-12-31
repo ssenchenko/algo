@@ -4,13 +4,15 @@
 
 using adt::SinglyLinkedList;
 
-TEST(SinglyLinkedList, DefaultConstructor_CreatesEmptyList) {
+TEST(SinglyLinkedList, CreatesEmptyList)
+{
   auto list = SinglyLinkedList<int>();
   EXPECT_TRUE(list.IsEmpty());
   EXPECT_EQ(0, list.size());
 }
 
-TEST(SinglyLinkedList, PushBack_AddsHead) {
+TEST(SinglyLinkedList, PushBackAddsHead)
+{
   auto list = SinglyLinkedList<int>();
   auto tail = list.PushBack(1);
   EXPECT_FALSE(list.IsEmpty());
@@ -18,8 +20,9 @@ TEST(SinglyLinkedList, PushBack_AddsHead) {
   EXPECT_EQ(1, *tail);
 }
 
-TEST(SinglyLinkedList, PushBack_AddsAfterHead) {
-  auto list = adt::SinglyLinkedList<int>();
+TEST(SinglyLinkedList, AddsAfterHead)
+{
+  auto list = SinglyLinkedList<int>();
   list.PushBack(1);
   list.PushBack(1);
   list.PushBack(1);
@@ -27,23 +30,26 @@ TEST(SinglyLinkedList, PushBack_AddsAfterHead) {
   EXPECT_EQ(3, list.size());
 }
 
-TEST(SinglyLinkedList, PushFront_AddsHead) {
-  auto list = adt::SinglyLinkedList<int>();
+TEST(SinglyLinkedList, PushFrontAddsHead)
+{
+  auto list = SinglyLinkedList<int>();
   list.PushFront(1);
   EXPECT_FALSE(list.IsEmpty());
   EXPECT_EQ(1, list.size());
 }
 
-TEST(SinglyLinkedList, PushFront_AddsBeforeHead) {
-  auto list = adt::SinglyLinkedList<int>();
+TEST(SinglyLinkedList, AddsBeforeHead)
+{
+  auto list = SinglyLinkedList<int>();
   list.PushFront(1);
   list.PushFront(1);
   EXPECT_FALSE(list.IsEmpty());
   EXPECT_EQ(2, list.size());
 }
 
-TEST(SinglyLinkedList, InitializerList) {
-  adt::SinglyLinkedList<int> list{1, 2};
+TEST(SinglyLinkedList, InitializerList)
+{
+  SinglyLinkedList<int> list{1, 2};
   EXPECT_FALSE(list.IsEmpty());
   EXPECT_EQ(list.size(), 2);
 }
