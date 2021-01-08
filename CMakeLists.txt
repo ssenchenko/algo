@@ -42,6 +42,8 @@ else()
   set(WARNINGS "-Wall -Wextra -Wpedantic -Werror")
 endif()
 
+enable_testing ()
+
 # Include sub-projects.
 add_subdirectory (adt)
 add_subdirectory (challenges)

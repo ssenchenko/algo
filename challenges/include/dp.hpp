@@ -25,16 +25,17 @@ namespace chl {
  * that index, you can reach the end of the array (index A.length - 1) by jumping some number of
  * times (possibly 0 or more than once).
  */
-class OddEvenJumps {
+class OddEvenJumps
+{
   std::vector<int> input_;
   size_t input_size_;
 
   static constexpr int kNoJump = -1;
 
- public:
+public:
   // the only constructor needed for unit tests
   OddEvenJumps(std::initializer_list<int> lst) : input_{lst}, input_size_{lst.size()} {};
-  OddEvenJumps(const OddEvenJumps&) = delete;
+  OddEvenJumps(const OddEvenJumps &) = delete;
 
   int operator()();
 
@@ -52,7 +53,8 @@ class OddEvenJumps {
    */
   std::vector<int> even_jumps();
 
-  std::string CreateKey(size_t index, short is_odd_jump) {
+  std::string CreateKey(size_t index, short is_odd_jump)
+  {
     return std::to_string(index) + "-" + std::to_string(is_odd_jump);
   }
 };
@@ -84,6 +86,6 @@ class OddEvenJumps {
  * @param tree array of tr
  * @return
  */
-int MaxFruitNumber(const std::vector<int>& tree);
+int MaxFruitNumber(const std::vector<int> &tree);
 
-}  // namespace chl
+} // namespace chl
