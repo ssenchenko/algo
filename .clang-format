@@ -6,9 +6,7 @@ AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Empty
 AllowShortFunctionsOnASingleLine: Inline # doesn't work with Break AfterFunction
-AllowShortIfStatementsOnASingleLine: Always
 AllowShortLambdasOnASingleLine: All
-AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Custom
 BraceWrapping:

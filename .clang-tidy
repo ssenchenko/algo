@@ -1,2 +1,2 @@
-Checks: '*,-abseil-,-altera-*,-android-*,-darwin-*,-fuchsia-*,-linuxkernel-*,-llvm-*,-llvmlibc-*,-objc-*,-zircon-*'
-FormatStyle: file
+Checks: '*,-google-readability-braces-around-statements,-hicpp-uppercase-literal-suffix,-hicpp-braces-around-statements,-modernize-use-trailing-return-type,-abseil-,-altera-*,-android-*,-darwin-*,-fuchsia-*,-linuxkernel-*,-llvm-*,-llvmlibc-*,-objc-*,-zircon-*'
+FormatStyle: file 

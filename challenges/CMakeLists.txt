@@ -12,16 +12,19 @@ foreach (BASE ${NAME_BASES})
     list (APPEND SOURCE_FILES src/${BASE}.cpp)
     list (APPEND TEST_FILES test/${BASE}.cpp)
 endforeach()
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-cmake_print_variables(SOURCE_FILES)
-cmake_print_variables(TEST_FILES)
+# cmake_print_variables(SOURCE_FILES)
+# cmake_print_variables(TEST_FILES)
 add_library (${LIBRARY_NAME} ${SOURCE_FILES} )
 target_include_directories (${LIBRARY_NAME} 
                             PUBLIC 
                             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                             $<INSTALL_INTERFACE:include>)
-set_target_properties(${LIBRARY_NAME} PROPERTIES COMPILE_FLAGS ${WARNINGS}) # WARNINGS from global CMakeLists
+set_target_properties(${LIBRARY_NAME} 
+                      PROPERTIES 
+                      COMPILE_FLAGS ${WARNINGS} # from global CMakeLists
+                      CXX_CLANG_TIDY 
+                      "${CLANG_TIDY_COMMAND};-fix;-header-filter=.*")
 
 target_link_libraries(${LIBRARY_NAME} adt)
 
