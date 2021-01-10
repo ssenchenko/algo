@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "LinkedList.hpp"
+#include "adt/LinkedList.hpp"
 
 using adt::SinglyLinkedList;
 

@@ -9,7 +9,7 @@ set (NAME_BASES "UnionFind" "LinkedList")
 set (HEADER_FILES "")
 set (TEST_FILES "")
 foreach (BASE ${NAME_BASES})
-    list (APPEND HEADER_FILES "include/${BASE}.hpp")
+    list (APPEND HEADER_FILES "include/${LIBRARY_NAME}/${BASE}.hpp")
     list (APPEND TEST_FILES "test/${BASE}.cpp")
 endforeach()
 
@@ -19,9 +19,6 @@ target_include_directories (${LIBRARY_NAME}
                             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                             $<INSTALL_INTERFACE:include>)
 target_sources(${LIBRARY_NAME} INTERFACE ${HEADER_FILES}) # to show library files in an IDE
-
-install(TARGETS ${LIBRARY_NAME})
-install(FILES ${HEADERS} DESTINATION include)
 
 # executable for tests
 add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES})

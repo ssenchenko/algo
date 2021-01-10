@@ -1,4 +1,4 @@
-#include "dp.hpp"
+#include "challenges/dp.hpp"
 
 #include <algorithm>
 #include <functional>

@@ -8,7 +8,8 @@ project ("algo")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_BUILD_TYPE Debug)
+# use the line below to print include directories for debug time
+set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
 
 # Download and unpack googletest at configure time
 configure_file(cmake/CMakeLists.txt.in googletest-download/CMakeLists.txt)

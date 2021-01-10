@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "dp.hpp"
+#include "challenges/dp.hpp"
 
 TEST(OddEvenJumps, Example1)
 {

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "arrays.hpp"
+#include "challenges/arrays.hpp"
 
 using namespace std::literals::string_literals;
 

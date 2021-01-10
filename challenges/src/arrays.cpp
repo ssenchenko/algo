@@ -1,4 +1,4 @@
-#include "arrays.hpp"
+#include "challenges/arrays.hpp"
 
 #include <algorithm>
 #include <functional>

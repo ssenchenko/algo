@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "UnionFind.hpp"
+#include "adt/UnionFind.hpp"
 
 using namespace adt;
 

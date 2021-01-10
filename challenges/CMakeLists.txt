@@ -25,9 +25,6 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES COMPILE_FLAGS ${WARNINGS}) # WA
 
 target_link_libraries(${LIBRARY_NAME} adt)
 
-install(TARGETS ${LIBRARY_NAME} DESTINATION lib)
-install(FILES ${HEADERS} DESTINATION include)
-
 # executable for tests
 add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES} )
 target_link_libraries (${TEST_EXECUTABLE_NAME} gtest_main ${LIBRARY_NAME})
