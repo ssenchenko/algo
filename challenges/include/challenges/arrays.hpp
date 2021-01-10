@@ -67,7 +67,7 @@ std::string Urlify(std::string original, size_t true_length);
  * @param emails list of email addresses
  * @return number of unique emails
  */
-size_t CountUniqueEmails(const std::vector<std::string>& emails);
+size_t CountUniqueEmails(const std::vector<std::string> &emails);
 
 /**
  * @brief Format licensing key into groups of K symbols.
@@ -99,7 +99,7 @@ std::string LicenseKeyFormatting(std::string_view source, int K);
  * @param S first string
  * @param T second string
  * @return true if S == T
-*/
+ */
 bool BackspaceCompare(std::string_view S, std::string_view T);
 
-}  // namespace chl
+} // namespace chl

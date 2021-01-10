@@ -1,16 +1,18 @@
 #include <gtest/gtest.h>
 
-#include "./UnionFind.hpp"
+#include "adt/UnionFind.hpp"
 
 using namespace adt;
 
-TEST(UnionFind, AddAndTestDirectConnection) {
+TEST(UnionFind, AddAndTestDirectConnection)
+{
   auto uf = adt::UnionFind<int>();
   uf.Connect({3, 5});
   EXPECT_TRUE(uf.AreConnected({3, 5}));
 }
 
-TEST(UnionFind, AddAndTestIndirectConnection) {
+TEST(UnionFind, AddAndTestIndirectConnection)
+{
   auto uf = adt::UnionFind<int>();
   uf.Connect({1, 2});
   uf.Connect({2, 3});

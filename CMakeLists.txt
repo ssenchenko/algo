@@ -8,10 +8,11 @@ project ("algo")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_BUILD_TYPE Debug)
+# use the line below to print include directories for debug time
+set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
 
 # Download and unpack googletest at configure time
-configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+configure_file(cmake/CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
   RESULT_VARIABLE result
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
@@ -42,6 +43,8 @@ else()
   set(WARNINGS "-Wall -Wextra -Wpedantic -Werror")
 endif()
 
+enable_testing ()
+
 # Include sub-projects.
-add_subdirectory ("adt")
-add_subdirectory ("challenges")
+add_subdirectory (adt)
+add_subdirectory (challenges)

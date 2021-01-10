@@ -1,1 +1,2 @@
-Checks: '*'
+Checks: '*,-abseil-,-altera-*,-android-*,-darwin-*,-fuchsia-*,-linuxkernel-*,-llvm-*,-llvmlibc-*,-objc-*,-zircon-*'
+FormatStyle: file

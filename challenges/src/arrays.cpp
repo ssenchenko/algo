@@ -1,4 +1,4 @@
-#include "arrays.hpp"
+#include "challenges/arrays.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -8,18 +8,20 @@
 
 using namespace std::literals::string_literals;
 
-bool chl::HasAllUnique(std::string_view str) {
+bool chl::HasAllUnique(std::string_view str)
+{
   // Time O(N)
   // Space O(N)
   auto symbols = std::set<char>();
-  for (const auto& ch : str) {
+  for (const auto &ch : str) {
     if (symbols.contains(ch)) return false;
     symbols.insert(ch);
   }
   return true;
 }
 
-bool chl::HasAllUnique2(std::string_view str) {
+bool chl::HasAllUnique2(std::string_view str)
+{
   // Time O(N^2)
   // Memory O(1)
 
@@ -34,7 +36,8 @@ bool chl::HasAllUnique2(std::string_view str) {
   return true;
 }
 
-bool chl::IsPermutation(std::string_view left, std::string_view right) {
+bool chl::IsPermutation(std::string_view left, std::string_view right)
+{
   // time O(N)
   // space O(1) - map for all (printable?) ascii symbols
 
@@ -55,14 +58,15 @@ bool chl::IsPermutation(std::string_view left, std::string_view right) {
     --char_counter[ch];
   }
   // if counters are not 0, strings are not permutations
-  for (auto const& [_, value] : char_counter) {
+  for (auto const &[_, value] : char_counter) {
     if (value != 0) return false;
   }
 
   return true;
 }
 
-std::string chl::Urlify(std::string original, size_t true_length) {
+std::string chl::Urlify(std::string original, size_t true_length)
+{
   // Time O(N)
   // Space O(1)
 
@@ -76,8 +80,8 @@ std::string chl::Urlify(std::string original, size_t true_length) {
 
   constexpr std::string_view space{"%20"};
   const auto end = std::rend(original);
-  auto insert_at = std::rbegin(original);  // p in diagram
-  auto it{insert_at};                      // i in diagram
+  auto insert_at = std::rbegin(original); // p in diagram
+  auto it{insert_at};                     // i in diagram
   // move iterator to the last character of the true string (past additional spaces)
   std::advance(it, std::size(original) - true_length);
   // for (; (it != end) && (*it == ' '); ++it); // this is wrong approach which fails when string is
@@ -85,22 +89,25 @@ std::string chl::Urlify(std::string original, size_t true_length) {
   for (; it != end; ++it, ++insert_at) {
     if (*it != ' ') {
       *insert_at = *it;
-    } else {
-      std::copy(std::rbegin(space), std::rend(space),
-                insert_at);  // copy with 2 reverse iterators will copy backwards
+    }
+    else {
+      std::copy(std::rbegin(space),
+                std::rend(space),
+                insert_at); // copy with 2 reverse iterators will copy backwards
       std::advance(insert_at,
-                   std::size(space) - 1);  // -1 bc insert_at will be increased in for loop
+                   std::size(space) - 1); // -1 bc insert_at will be increased in for loop
     }
   }
 
   return original;
 }
 
-size_t chl::CountUniqueEmails(const std::vector<std::string>& emails) {
+size_t chl::CountUniqueEmails(const std::vector<std::string> &emails)
+{
   // Time O(M*N)
   // Space O(M*N)
 
-  auto get_clean_emails = [](const std::string& email) {
+  auto get_clean_emails = [](const std::string &email) {
     size_t left{0}, right{0};
     auto clean{""s};
     while (email.at(right) != '+' && email.at(right) != '@') {
@@ -117,14 +124,15 @@ size_t chl::CountUniqueEmails(const std::vector<std::string>& emails) {
   };
 
   std::set<std::string> unique_emails;
-  for (const auto& email : emails) {
+  for (const auto &email : emails) {
     auto clean_email = get_clean_emails(email);
     unique_emails.insert(clean_email);
   }
   return unique_emails.size();
 }
 
-std::string chl::LicenseKeyFormatting(std::string_view source, int K) {
+std::string chl::LicenseKeyFormatting(std::string_view source, int K)
+{
   constexpr char kSeparator = '-';
 
   auto IsLower = [](char c) { return std::islower(static_cast<unsigned char>(c)) != 0; };
@@ -156,7 +164,8 @@ std::string chl::LicenseKeyFormatting(std::string_view source, int K) {
     if (group_counter == 0) {
       group_counter = K;
       ++target_it;
-    } else {
+    }
+    else {
       --group_counter;
       *target_it = IsLower(*source_it) ? ToUpper(*source_it) : *source_it;
       ++source_it;
@@ -166,7 +175,8 @@ std::string chl::LicenseKeyFormatting(std::string_view source, int K) {
   return target;
 }
 
-bool chl::BackspaceCompare(std::string_view S, std::string_view T) {
+bool chl::BackspaceCompare(std::string_view S, std::string_view T)
+{
   // Time O(N)
   // Space O(1)
 
@@ -190,8 +200,7 @@ bool chl::BackspaceCompare(std::string_view S, std::string_view T) {
   auto NextMeaningful = [&kBackspace](auto it, auto end) {
     unsigned short skip{0};
     while (it != end && (*it == kBackspace || skip)) {
-      if (*it == kBackspace)
-        ++skip;
+      if (*it == kBackspace) ++skip;
       else if (skip)
         --skip;
       ++it;
@@ -208,10 +217,12 @@ bool chl::BackspaceCompare(std::string_view S, std::string_view T) {
     if (s == s_end && t == t_end) {
       are_equal = true;
       break;
-    } else if (s == s_end && t != t_end || t == t_end && s != s_end) {
+    }
+    else if ((s == s_end && t != t_end) || (t == t_end && s != s_end)) {
       are_equal = false;
       break;
-    } else
+    }
+    else
       are_equal = *s++ == *t++;
   }
   return are_equal;
