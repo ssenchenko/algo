@@ -18,20 +18,22 @@ class SinglyLinkedList
 
     Node() = delete;
     explicit Node(T item_copy) : item{std::move(item_copy)}, next{nullptr} {};
-    explicit Node(T &&item_rvalue) : item{item_rvalue}, next{nullptr} {};
+    explicit Node(T&& item_rvalue) : item{item_rvalue}, next{nullptr} {};
 
     ~Node() = default;
 
-    Node(const SelfT &node) : item{node.item}, next{node.next} {};
-    Node(SelfT &&node) noexcept : item{std::move(node.value)}, next{std::move(node.next)} {};
+    Node(const SelfT& node) : item{node.item}, next{node.next} {};
+    // when we move rvalue, we don't want to keep a pointer because that memory will probably be
+    // disposed
+    Node(SelfT&& node) noexcept : item{std::move(node.value)}, next{nullptr} {};
 
-    SelfT &operator=(const SelfT &other)
+    SelfT& operator=(const SelfT& other)
     {
       item = other.item;
       next = other.next;
       return *this;
     };
-    SelfT &operator=(SelfT &&other) noexcept
+    SelfT& operator=(SelfT&& other) noexcept
     {
       item = std::move(other.item);
       next = std::move(other.next);
@@ -53,8 +55,13 @@ public:
       }
     }
   };
+  SinglyLinkedList(const SinglyLinkedList<Item>& other);
+  SinglyLinkedList(SinglyLinkedList&& rvalue) noexcept;
 
   SinglyLinkedList(std::initializer_list<Item> items_list);
+
+  SinglyLinkedList<Item>& operator=(const SinglyLinkedList& other) = delete;
+  SinglyLinkedList<Item>& operator=(SinglyLinkedList<Item>&& rvalue) = delete;
 
   [[nodiscard]] size_t size() const;
   [[nodiscard]] bool IsEmpty() const
@@ -85,19 +92,19 @@ public:
     using value_type = Item;
     using difference_type = std::ptrdiff_t;
     using pointer = std::shared_ptr<value_type>;
-    using reference = value_type &;
+    using reference = value_type&;
 
     explicit Iterator(std::shared_ptr<NodeT> ptr) : node_ptr_{ptr} {};
     ~Iterator() = default;
-    Iterator(Iterator const &other) : node_ptr_{other.node_ptr_} {};
-    Iterator(Iterator &&other) noexcept : node_ptr_{std::move(other.node_ptr_)} {};
+    Iterator(const Iterator& other) : node_ptr_{other.node_ptr_} {};
+    Iterator(Iterator&& other) noexcept : node_ptr_{std::move(other.node_ptr_)} {};
 
-    Iterator &operator=(Iterator const &other)
+    Iterator& operator=(Iterator const& other)
     {
       node_ptr_ = other.node_ptr_;
       return *this;
     };
-    Iterator &operator=(Iterator &&other) noexcept
+    Iterator& operator=(Iterator&& other) noexcept
     {
       node_ptr_ = std::move(other.node_ptr_);
       return *this;
@@ -112,7 +119,7 @@ public:
       return node_ptr_->item;
     };
 
-    Iterator &operator++()
+    Iterator& operator++()
     {
       node_ptr_ = node_ptr_->next;
       return *this;
@@ -124,12 +131,12 @@ public:
       return copy;
     };
 
-    friend bool operator==(const Iterator &lhs, const Iterator &rhs)
+    friend bool operator==(const Iterator& lhs, const Iterator& rhs)
     {
       return lhs.node_ptr_ == rhs.node_ptr_;
     };
 
-    friend bool operator!=(const Iterator &lhs, const Iterator &rhs)
+    friend bool operator!=(const Iterator& lhs, const Iterator& rhs)
     {
       return lhs.node_ptr_ != rhs.node_ptr_;
     };
@@ -138,8 +145,35 @@ public:
 } // namespace adt
 
 template <typename Item>
+adt::SinglyLinkedList<Item>::SinglyLinkedList(const adt::SinglyLinkedList<Item>& other)
+{
+  if (!other.head_)
+    return;
+  auto* current_other = other.head_;
+  head_ = std::make_shared<NodeT>(other.head_->item);
+  auto* current_this = head_;  while (current_other) {
+    current_this = std::make_shared<NodeT>();
+    current_this->item = current_other->item;
+    current_other = current_other->next;
+    current_this = current_this->next;
+  }
+}
+
+template <typename Item>
+adt::SinglyLinkedList<Item>::SinglyLinkedList(adt::SinglyLinkedList<Item>&& rvalue) noexcept
+{
+  auto* current = head_;
+  while (rvalue.head_) {
+    current = std::make_shared<NodeT>(std::move(rvalue.head_)); // moves only item
+    rvalue.head_ = rvalue.head_->next;                          // shortens the chain
+    //current = 
+  }
+}
+
+template <typename Item>
 adt::SinglyLinkedList<Item>::SinglyLinkedList(std::initializer_list<Item> items_list)
 {
+  // initializer_list doesn't have reverse iterator :(
   for (auto j{std::prev(items_list.end())}; j >= items_list.begin(); --j) {
     PushFront(*j);
   }
@@ -162,7 +196,7 @@ template <typename Item>
 typename adt::SinglyLinkedList<Item>::Iterator adt::SinglyLinkedList<Item>::PushBack(Item item)
 {
   if (!head_) {
-    head_ = std::make_shared<Node<Item>>(item);
+    head_ = std::make_shared<NodeT>(item);
     return adt::SinglyLinkedList<Item>::Iterator(head_);
   }
   else {
@@ -170,7 +204,7 @@ typename adt::SinglyLinkedList<Item>::Iterator adt::SinglyLinkedList<Item>::Push
     while (temp->next) {
       temp = temp->next;
     }
-    temp->next = std::make_shared<Node<Item>>(item);
+    temp->next = std::make_shared<NodeT>(item);
     return adt::SinglyLinkedList<Item>::Iterator(temp->next);
   }
 }
