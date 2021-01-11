@@ -22,4 +22,5 @@ BraceWrapping:
   BeforeElse: true
 BinPackArguments: false
 BinPackParameters: false
+PointerAlignment: Left
 Standard: c++20

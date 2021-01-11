@@ -13,18 +13,23 @@ int chl::OddEvenJumps::operator()()
 
   std::function<short(size_t, short)> Jumper = [&](auto index, auto is_odd) {
     auto key = CreateKey(index, is_odd);
-    if (auto it = solutions.find(key); it != solutions.end()) return it->second;
+    if (auto it = solutions.find(key); it != solutions.end()) {
+      return it->second;
+    }
     size_t next_jump = is_odd ? odd[index] : even[index];
     short res = 0;
-    if (next_jump == input_size_ - 1) res = 1;
-    else if (static_cast<int>(next_jump) != kNoJump)
+    if (next_jump == input_size_ - 1) {
+      res = 1;
+    }
+    else if (static_cast<int>(next_jump) != kNoJump) {
       res = Jumper(next_jump, !is_odd);
+    }
     solutions[key] = res;
     return res;
   };
 
   int legal_jumps = 0;
-  for (auto i = input_size_; i--;) {
+  for (auto i = input_size_; (i--) != 0U;) {
     legal_jumps += Jumper(i, 1);
   }
   return legal_jumps;
@@ -34,10 +39,12 @@ std::vector<int> chl::OddEvenJumps::odd_jumps()
 {
   std::vector<int> res(input_size_, kNoJump);
   std::map<int, int> helper;
-  for (auto i{input_size_ - 1}; i--;) {
+  for (auto i{input_size_ - 1}; (i--) != 0U;) {
     helper.insert_or_assign(input_[i + 1], i + 1);
     auto jump_it = helper.lower_bound(input_[i]);
-    if (jump_it != helper.end()) res[i] = jump_it->second;
+    if (jump_it != helper.end()) {
+      res[i] = jump_it->second;
+    }
   }
   return res;
 }
@@ -46,10 +53,12 @@ std::vector<int> chl::OddEvenJumps::even_jumps()
 {
   std::vector<int> res(input_size_, kNoJump);
   std::map<int, int> helper;
-  for (auto i{input_size_ - 1}; i--;) {
+  for (auto i{input_size_ - 1}; (i--) != 0U;) {
     helper.insert_or_assign(-input_[i + 1], i + 1);
     auto jump_it = helper.lower_bound(-input_[i]);
-    if (jump_it != helper.end()) res[i] = jump_it->second;
+    if (jump_it != helper.end()) {
+      res[i] = jump_it->second;
+    }
   }
   return res;
 }
@@ -65,9 +74,13 @@ int chl::MaxFruitNumber(const std::vector<int> &tree)
   //              s
   //  counter = 2
 
-  auto s{tree.cbegin()}, p{std::next(s)}, end{tree.cend()};
-  auto t1{*s}, t2{*s}; // t1 - type in 1st bucket, t2 - type in 2nd bucket
-  auto count{0}, counter{1};
+  auto s{tree.cbegin()};
+  auto p{std::next(s)};
+  auto end{tree.cend()};
+  auto t1{*s};
+  auto t2{*s}; // t1 - type in 1st bucket, t2 - type in 2nd bucket
+  auto count{0};
+  auto counter{1};
 
   for (; p != end; ++p, ++counter) {
     if (*p != *s) {

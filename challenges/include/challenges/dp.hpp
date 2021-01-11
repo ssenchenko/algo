@@ -53,7 +53,7 @@ public:
    */
   std::vector<int> even_jumps();
 
-  std::string CreateKey(size_t index, short is_odd_jump)
+  static std::string CreateKey(size_t index, short is_odd_jump)
   {
     return std::to_string(index) + "-" + std::to_string(is_odd_jump);
   }

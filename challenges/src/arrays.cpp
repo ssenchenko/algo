@@ -14,7 +14,9 @@ bool chl::HasAllUnique(std::string_view str)
   // Space O(N)
   auto symbols = std::set<char>();
   for (const auto &ch : str) {
-    if (symbols.contains(ch)) return false;
+    if (symbols.contains(ch)) {
+      return false;
+    }
     symbols.insert(ch);
   }
   return true;
@@ -26,12 +28,16 @@ bool chl::HasAllUnique2(std::string_view str)
   // Memory O(1)
 
   // only to be sure that iterator arithmetics won't create a bug for an empty string case
-  if (std::empty(str)) return true;
+  if (std::empty(str)) {
+    return true;
+  }
 
   auto after_last = std::end(str);
   for (auto it = std::begin(str), last = std::prev(after_last); it < last; ++it) {
     // if symbol at <it> position can be found in [it+1, end_of_string] -> not all unique symbols
-    if (std::find(std::next(it), after_last, *it) != after_last) return false;
+    if (std::find(std::next(it), after_last, *it) != after_last) {
+      return false;
+    }
   }
   return true;
 }
@@ -43,7 +49,9 @@ bool chl::IsPermutation(std::string_view left, std::string_view right)
 
   // checking for equal length doesn't improve time complexity and is covered by general case below
   // check if strings are identical -- assumption (!!!) that it's not what we're looking for
-  if (left == right) return false;
+  if (left == right) {
+    return false;
+  }
 
   auto char_counter = std::map<const char, int>();
   // count every character in left
@@ -54,12 +62,16 @@ bool chl::IsPermutation(std::string_view left, std::string_view right)
   // decrease counters for each symbol from right
   for (auto ch : right) {
     // if symbol is not in occurrences, right is not a permutation of left bc it has extra symbols
-    if (!char_counter.contains(ch)) return false;
+    if (!char_counter.contains(ch)) {
+      return false;
+    }
     --char_counter[ch];
   }
   // if counters are not 0, strings are not permutations
   for (auto const &[_, value] : char_counter) {
-    if (value != 0) return false;
+    if (value != 0) {
+      return false;
+    }
   }
 
   return true;
@@ -108,7 +120,8 @@ size_t chl::CountUniqueEmails(const std::vector<std::string> &emails)
   // Space O(M*N)
 
   auto get_clean_emails = [](const std::string &email) {
-    size_t left{0}, right{0};
+    size_t left{0};
+    size_t right{0};
     auto clean{""s};
     while (email.at(right) != '+' && email.at(right) != '@') {
       if (email.at(right) == '.') {
@@ -118,7 +131,9 @@ size_t chl::CountUniqueEmails(const std::vector<std::string> &emails)
       ++right;
     }
     clean += email.substr(left, right - left);
-    while (email.at(right) != '@') ++right;
+    while (email.at(right) != '@') {
+      ++right;
+    }
     clean += email.substr(right, email.size() - right);
     return clean;
   };
@@ -142,13 +157,15 @@ std::string chl::LicenseKeyFormatting(std::string_view source, int K)
   };
 
   size_t sep_counter{0};
-  for (auto sep_pos = source.find(kSeparator); sep_pos != source.npos;
+  for (auto sep_pos = source.find(kSeparator); sep_pos != std::string_view::npos;
        ++sep_counter, sep_pos = source.find(kSeparator, sep_pos + 1))
+  {
     ;
+  }
   auto updated_size = source.size() - sep_counter;
   std::string target;
-  if (updated_size) {
-    auto groups_number = updated_size / K + (updated_size % K ? 1 : 0);
+  if (updated_size != 0U) {
+    auto groups_number = updated_size / K + ((updated_size % K) != 0U ? 1 : 0);
     auto new_size = groups_number - 1 + updated_size;
     target.reserve(new_size);
     target.assign(new_size, kSeparator);
@@ -200,16 +217,21 @@ bool chl::BackspaceCompare(std::string_view S, std::string_view T)
   auto NextMeaningful = [&kBackspace](auto it, auto end) {
     unsigned short skip{0};
     while (it != end && (*it == kBackspace || skip)) {
-      if (*it == kBackspace) ++skip;
-      else if (skip)
+      if (*it == kBackspace) {
+        ++skip;
+      }
+      else if (skip) {
         --skip;
+      }
       ++it;
     }
     return it;
   };
 
-  auto s{S.crbegin()}, t{T.crbegin()};
-  const auto s_end{S.crend()}, t_end{T.crend()};
+  auto s{S.crbegin()};
+  auto t{T.crbegin()};
+  const auto s_end{S.crend()};
+  const auto t_end{T.crend()};
   auto are_equal{true};
   while (are_equal) {
     s = NextMeaningful(s, s_end);
@@ -218,12 +240,12 @@ bool chl::BackspaceCompare(std::string_view S, std::string_view T)
       are_equal = true;
       break;
     }
-    else if ((s == s_end && t != t_end) || (t == t_end && s != s_end)) {
+    if ((s == s_end && t != t_end) || (t == t_end && s != s_end)) {
       are_equal = false;
       break;
     }
-    else
-      are_equal = *s++ == *t++;
+
+    are_equal = *s++ == *t++;
   }
   return are_equal;
 }
