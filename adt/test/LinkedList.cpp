@@ -53,3 +53,15 @@ TEST(SinglyLinkedList, InitializerList)
   EXPECT_FALSE(list.IsEmpty());
   EXPECT_EQ(list.size(), 2);
 }
+
+TEST(SinglyLinkedList, CopyCtor_CreatesNewList)
+{
+  SinglyLinkedList<int> original{1, 2, 3};
+  SinglyLinkedList<int> copy(original);
+  EXPECT_FALSE(copy.IsEmpty());
+  EXPECT_EQ(3, copy.size());
+  auto original_it = original.begin();
+  *original_it = 4;
+  auto copy_it = copy.begin();
+  EXPECT_EQ(*copy_it, 1);
+}

@@ -116,6 +116,7 @@ public:
     };
     pointer operator->() const
     {
+      // should be checked!!
       return node_ptr_->item;
     };
 
@@ -124,7 +125,7 @@ public:
       node_ptr_ = node_ptr_->next;
       return *this;
     };
-    Iterator operator++(int)
+    const Iterator operator++(int)
     {
       Iterator copy = *this;
       node_ptr_ = node_ptr_->next;
@@ -149,11 +150,11 @@ adt::SinglyLinkedList<Item>::SinglyLinkedList(const adt::SinglyLinkedList<Item>&
 {
   if (!other.head_)
     return;
-  auto* current_other = other.head_;
+  auto current_other = other.head_;
   head_ = std::make_shared<NodeT>(other.head_->item);
-  auto* current_this = head_;  while (current_other) {
-    current_this = std::make_shared<NodeT>();
-    current_this->item = current_other->item;
+  auto current_this = head_;
+  while (current_other->next) {
+    current_this->next = std::make_shared<NodeT>(current_other->next->item);
     current_other = current_other->next;
     current_this = current_this->next;
   }
@@ -162,11 +163,11 @@ adt::SinglyLinkedList<Item>::SinglyLinkedList(const adt::SinglyLinkedList<Item>&
 template <typename Item>
 adt::SinglyLinkedList<Item>::SinglyLinkedList(adt::SinglyLinkedList<Item>&& rvalue) noexcept
 {
-  auto* current = head_;
+  auto current = head_;
   while (rvalue.head_) {
     current = std::make_shared<NodeT>(std::move(rvalue.head_)); // moves only item
     rvalue.head_ = rvalue.head_->next;                          // shortens the chain
-    //current = 
+    // current =
   }
 }
 
