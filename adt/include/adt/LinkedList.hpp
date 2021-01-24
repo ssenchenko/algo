@@ -17,8 +17,8 @@ class SinglyLinkedList
     std::shared_ptr<SelfT> next; // use of unique_ptr would make impossible to copy Node
 
     Node() = delete;
-    explicit Node(T item_copy) : item{std::move(item_copy)}, next{nullptr} {};
-    explicit Node(T&& item_rvalue) : item{item_rvalue}, next{nullptr} {};
+    explicit Node(T item_copy) : item{item_copy}, next{nullptr} {};
+    explicit Node(T&& item_rvalue) : item{std::move(item_rvalue)}, next{nullptr} {};
 
     ~Node() = default;
 
@@ -125,7 +125,7 @@ public:
       node_ptr_ = node_ptr_->next;
       return *this;
     };
-    const Iterator operator++(int)
+    Iterator operator++(int)
     {
       Iterator copy = *this;
       node_ptr_ = node_ptr_->next;
