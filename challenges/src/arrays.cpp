@@ -32,7 +32,7 @@ bool chl::HasAllUnique2(std::string_view str)
     return true;
   }
 
-  auto after_last = std::end(str);
+  const auto* after_last = std::end(str);
   for (auto it = std::begin(str), last = std::prev(after_last); it < last; ++it) {
     // if symbol at <it> position can be found in [it+1, end_of_string] -> not all unique symbols
     if (std::find(std::next(it), after_last, *it) != after_last) {

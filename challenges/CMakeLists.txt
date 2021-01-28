@@ -26,7 +26,7 @@ set_target_properties(${LIBRARY_NAME}
                       CXX_CLANG_TIDY 
                       "${CLANG_TIDY_COMMAND};-fix;-header-filter=.*")
 
-target_link_libraries(${LIBRARY_NAME} adt)
+# target_link_libraries(${LIBRARY_NAME} adt)
 
 # executable for tests
 add_executable (${TEST_EXECUTABLE_NAME} ${TEST_FILES} )
